@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Game Show">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="public.js"></script>
+    <title>Public Page</title>
+</head>
+<body>
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .game {
+      display: none;
+      width: 100vw; 
+      height: 100vh; 
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      font-size: 5rem;
+    }
+
+    .game.active {
+      display: flex;
+    }
+  </style>
+
+  <game id="game1" class="game" style="background:red;">
+    GAME 1 :)
+  </game>
+
+  <game id="game2" class="game" style="background:blue;">
+      GAME 1 :)
+  </game>
+
+  <game id="game3" class="game" style="background:green;">
+      GAME 1 :)
+  </game>
+
+</body>
+</html>
