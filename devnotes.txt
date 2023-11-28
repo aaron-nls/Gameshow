@@ -1,0 +1,20 @@
+- On load, if player JSON is saved locally
+    - attempt to rejoin the game
+    - else...
+
+- player adds their name
+    - it stores their name and generates a unique id and a score of zero {GENERATED_ID : { name: 'NAME', score: 0}}
+    - The json is saved locally
+    - The json is passed to the server and relayed to the admin console [updatePlayers]
+    - The admin can then assign teams [admin - updatePlayer, server - updatePlayer]
+    - this emits another team update [server - updatePlayer  _  player - updatePlayer]
+
+- a game is started by the admin
+    - games are hardcoded on the client side
+    - on answer of a question, the player emits an answer and the relative score is added to their total [sendAnswer, recieveAnswer]
+        - if all players in answerArray have answered then next server emits a message to show feedback and start next question [showAnswer nextQuestion]
+        - answerArray is emptied
+
+
+-  Tea
+
