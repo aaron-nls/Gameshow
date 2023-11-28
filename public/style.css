@@ -1,0 +1,21 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.game {
+  display: none;
+  width: 100vw; 
+  height: 100vh; 
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+}
+
+.game.active {
+  display: flex;
+}
