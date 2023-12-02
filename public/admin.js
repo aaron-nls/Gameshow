@@ -11,10 +11,12 @@ form.addEventListener('submit', (e) => {
   messageBox.value = '';
 });
 
-socket.on('message', (message) => {
-  const li = document.createElement('li');
-  li.textContent = message;
-  messages.appendChild(li);
+socket.on('updatePlayers', (players) => {
+  
+ $('.players').empty();
+  Object.keys(players).forEach((name, score) => {
+    $('.players').append("<li><div class='player'><span>" + name + '</span><span>' + score + '</span></div></li>');
+  });
 });
 
 

@@ -45,10 +45,31 @@
     .game.active {
       display: flex;
     }
+
+    .screen {
+      display: none;
+      width: 100vw; 
+      height: 100vh; 
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      font-size: 5rem;
+    }
+
+    .screen.active {
+      display: flex;
+    }
   </style>
 
-  <game id="game1" class="game" style="background:red;">
-    GAME 1 :)
+  <game id="playerName" class="game" style="background:red;">
+      <div class="screen active" data-id="1">
+        <input type="text" class="playerName" placeholder="Enter your name">
+        <button class="btn addPlayer">Submit</button> 
+      </div>
+
+      <div class="screen" data-id="2">
+        <h1>Waiting for other players...</h1>
+      </div>
   </game>
 
   <game id="game2" class="game" style="background:blue;">
