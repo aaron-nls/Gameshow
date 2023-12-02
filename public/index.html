@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#ffffff">
-    <link rel="manifest" href="/manifest.json">
+    <!-- <link rel="manifest" href="/manifest.json"> -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Game Show">
@@ -32,7 +32,7 @@
       overflow: hidden;
     }
 
-    .game {
+    game {
       display: none;
       width: 100vw; 
       height: 100vh; 
@@ -42,7 +42,7 @@
       font-size: 5rem;
     }
 
-    .game.active {
+    game.active {
       display: flex;
     }
 
@@ -56,28 +56,71 @@
       font-size: 5rem;
     }
 
-    .screen.active {
+    screen.active {
+      display: flex;
+    }
+
+    page {
+      display: none;
+    }
+    page:first-child {
       display: flex;
     }
   </style>
 
-  <game id="playerName" class="game" style="background:red;">
-      <div class="screen active" data-id="1">
-        <input type="text" class="playerName" placeholder="Enter your name">
-        <button class="btn addPlayer">Submit</button> 
-      </div>
 
-      <div class="screen" data-id="2">
-        <h1>Waiting for other players...</h1>
-      </div>
+<game id="start" style="background:green;">
+  <screen class="active" data-id="1">
+    <page data-id="1">
+      <h1>Game Show</h1>
+    </page>
+  </screen>
+</game>
+
+<game id="leaderboard" style="background:gold;">
+  <screen class="active" data-id="1">
+    <page data-id="1">
+      <h1>Please view the screen</h1>
+    </page>
+  </screen>
+</game>
+
+<game id="teamscore" style="background:goldenrod;">
+  <screen class="active" data-id="1">
+    <page data-id="1">
+      <h1>Please view the screen</h1>
+    </page>
+  </screen>
+</game>
+
+  <game id="playerName" style="background:red;">
+      <screen class="active" data-enter="playerName" data-id="1">
+        <page data-id="1">
+          <h3>Enter your name</h3>
+          <input type="text" class="playerName" placeholder="Enter your name">
+          <button class="btn addPlayer">Submit</button> 
+        </page>
+
+        <page data-id="2">
+          <h1>Waiting for other players...</h1>
+        </page>
+      </screen>
   </game>
 
   <game id="game2" class="game" style="background:blue;">
-      GAME 1 :)
+    <screen class="active" data-id="1">
+      <page data-id="1">
+        GAME 2 :)
+      </page>
+    </screen>
   </game>
 
   <game id="game3" class="game" style="background:green;">
-      GAME 1 :)
+    <screen class="active" data-id="1">
+      <page data-id="1">
+        GAME 3 :)
+      </page>
+    </screen>
   </game>
 
 </body>
