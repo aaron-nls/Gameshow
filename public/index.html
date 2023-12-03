@@ -17,6 +17,7 @@
     <meta name="theme-color" content="#ffffff">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script defer src="public.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Public Page</title>
@@ -72,7 +73,11 @@
 <game id="start" style="background:green;">
   <screen class="active" data-id="1">
     <page data-id="1">
-      <h1>Game Show</h1>
+      <div class="gamelogo">
+        <img src="images/start-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
+        <img src="images/start-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
+        <img src="images/start-logo-1.png"  class="animate__animated animate__zoomIn" />
+      </div>
     </page>
   </screen>
 </game>
@@ -107,10 +112,28 @@
       </screen>
   </game>
 
-  <game id="game2" class="game" style="background:blue;">
+  <game id="game1" class="game" style="background:blue;">
     <screen class="active" data-id="1">
       <page data-id="1">
-        GAME 2 :)
+        
+
+      <div class="gamelogo">
+        <img src="images/game1-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
+        <img src="images/game1-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
+        <img src="images/game1-logo-1.png"  class="animate__animated animate__zoomIn" />
+      </div>
+      </page>
+    </screen>
+  </game>
+
+  <game id="game2" class="game" style="background:pink;">
+    <screen class="active" data-id="1">
+      <page data-id="1">
+        <div class="gamelogo">
+          <img src="images/game2-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
+          <img src="images/game2-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
+          <img src="images/game2-logo-1.png"  class="animate__animated animate__zoomIn" />
+        </div>
       </page>
     </screen>
   </game>
@@ -118,7 +141,35 @@
   <game id="game3" class="game" style="background:green;">
     <screen class="active" data-id="1">
       <page data-id="1">
-        GAME 3 :)
+        <div class="gamelogo">
+          <img src="images/game3-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
+          <img src="images/game3-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
+          <img src="images/game3-logo-1.png"  class="animate__animated animate__zoomIn" />
+        </div>
+      </page>
+    </screen>
+  </game>
+
+  <game id="game4" class="game" style="background:purple;">
+    <screen class="active" data-id="1">
+      <page data-id="1">
+        <div class="gamelogo">
+          <img src="images/game4-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
+          <img src="images/game4-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
+          <img src="images/game4-logo-1.png"  class="animate__animated animate__zoomIn" />
+        </div>
+      </page>
+    </screen>
+  </game>
+
+  <game id="game5" class="game" style="background:yellow;">
+    <screen class="active" data-id="1">
+      <page data-id="1">
+        <div class="gamelogo">
+          <img src="images/game5-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
+          <img src="images/game5-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
+          <img src="images/game5-logo-1.png"  class="animate__animated animate__zoomIn" />
+        </div>
       </page>
     </screen>
   </game>
