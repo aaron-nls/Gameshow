@@ -15,6 +15,9 @@
     <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="msapplication-config" content="/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rancho&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -24,55 +27,10 @@
 </head>
 <body>
 
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-    }
 
-    game {
-      display: none;
-      width: 100vw; 
-      height: 100vh; 
-      position: absolute;
-      justify-content: center;
-      align-items: center;
-      font-size: 5rem;
-    }
-
-    game.active {
-      display: flex;
-    }
-
-    .screen {
-      display: none;
-      width: 100vw; 
-      height: 100vh; 
-      position: absolute;
-      justify-content: center;
-      align-items: center;
-      font-size: 5rem;
-    }
-
-    screen.active {
-      display: flex;
-    }
-
-    page {
-      display: none;
-    }
-    page:first-child {
-      display: flex;
-    }
-  </style>
-
-
-<game id="start" style="background:green;">
-  <screen class="active" data-id="1">
-    <page data-id="1">
+<game id="start">
+  <screen class="active" data-id="0">
+    <page data-id="0">
       <div class="gamelogo">
         <img src="images/start-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
         <img src="images/start-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
@@ -82,53 +40,51 @@
   </screen>
 </game>
 
-<game id="leaderboard" style="background:gold;">
-  <screen class="active" data-id="1">
-    <page data-id="1">
+<game id="leaderboard">
+  <screen class="active" data-id="0">
+    <page data-id="0">
       <h1>Please view the screen</h1>
     </page>
   </screen>
 </game>
 
-<game id="teamscore" style="background:goldenrod;">
-  <screen class="active" data-id="1">
-    <page data-id="1">
+<game id="teamscore">
+  <screen class="active" data-id="0">
+    <page data-id="0">
       <h1>Please view the screen</h1>
     </page>
   </screen>
 </game>
 
-  <game id="playerName" style="background:red;">
-      <screen class="active" data-enter="playerName" data-id="1">
-        <page data-id="1">
-          <h3>Enter your name</h3>
+  <game id="playerName">
+      <screen class="active" data-enter="playerName" data-id="0">
+        <page data-id="0">
+          <h1>Enter your name</h1>
           <input type="text" class="playerName" placeholder="Enter your name">
           <button class="btn addPlayer">Submit</button> 
         </page>
 
-        <page data-id="2">
+        <page data-id="1">
           <h1>Waiting for other players...</h1>
         </page>
       </screen>
   </game>
 
-  <game id="game1" class="game" style="background:blue;">
-    <screen class="active" data-id="1">
-      <page data-id="1">
-        
-
-      <div class="gamelogo">
-        <img src="images/game1-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
-        <img src="images/game1-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
-        <img src="images/game1-logo-1.png"  class="animate__animated animate__zoomIn" />
-      </div>
+  <game id="game1" class="game"  data-enter="generateGame">
+    <screen class="active" data-id="0">
+      <page data-id="0">
+        <div class="gamelogo">
+          <img src="images/game1-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
+          <img src="images/game1-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
+          <img src="images/game1-logo-1.png"  class="animate__animated animate__zoomIn" />
+        </div>
       </page>
     </screen>
   </game>
 
-  <game id="game2" class="game" style="background:pink;">
-    <screen class="active" data-id="1">
-      <page data-id="1">
+  <game id="game2" class="game"  data-enter="generateGame">
+    <screen class="active" data-id="0">
+      <page data-id="0">
         <div class="gamelogo">
           <img src="images/game2-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
           <img src="images/game2-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
@@ -138,9 +94,9 @@
     </screen>
   </game>
 
-  <game id="game3" class="game" style="background:green;">
-    <screen class="active" data-id="1">
-      <page data-id="1">
+  <game id="game3" class="game"  data-enter="generateGame">
+    <screen class="active" data-id="0">
+      <page data-id="0">
         <div class="gamelogo">
           <img src="images/game3-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
           <img src="images/game3-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
@@ -150,9 +106,9 @@
     </screen>
   </game>
 
-  <game id="game4" class="game" style="background:purple;">
-    <screen class="active" data-id="1">
-      <page data-id="1">
+  <game id="game4" class="game"  data-enter="generateGame">
+    <screen class="active" data-id="0">
+      <page data-id="0">
         <div class="gamelogo">
           <img src="images/game4-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
           <img src="images/game4-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />
@@ -162,9 +118,9 @@
     </screen>
   </game>
 
-  <game id="game5" class="game" style="background:yellow;">
-    <screen class="active" data-id="1">
-      <page data-id="1">
+  <game id="game5" class="game"  data-enter="generateGame">
+    <screen class="active" data-id="0">
+      <page data-id="0">
         <div class="gamelogo">
           <img src="images/game5-logo-3.png" class="animate__animated animate__bounceIn  animate__delay-3s" />
           <img src="images/game5-logo-2.png"  class="animate__animated animate__bounceInUp animate__delay-1s" />

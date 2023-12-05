@@ -2,11 +2,19 @@
 
 const socket = io('http://localhost:8080');
 let playerId = null;
-let currentGame = null;
+let gamePosition = null;
 
 
 $(document).ready(function() { 
   checkIfSessionExists();
+
+  $(document).on('click', '.answers button', function(e) {
+    $('page:visible .answers button').addClass('disabled');
+    $(this).addClass('selected');
+    let correct = $(this).attr('data-correct') == 'true' ? 1 : 0;
+    socket.emit('submitAnswer', {'playerId': playerId, 'correct': correct});
+    
+  });
 });
 
 function checkIfSessionExists() {
@@ -17,7 +25,7 @@ function checkIfSessionExists() {
     return true;
   }
   
-  changeGame('playerName', 1);
+  changeGame('playerName', 0);
 }
 
 /* Get Game */
@@ -30,6 +38,13 @@ function getGame() {
 function changeGame(game, screen) {
   $('game').removeClass('active');
   $('#' + game).addClass('active');
+
+  
+  let enterFunction = $('game:visible').attr('data-enter');
+
+  if(enterFunction) {
+    window[enterFunction]();
+  }
   changeScreen(screen);
 }
 
@@ -50,16 +65,17 @@ function nextPage() {
 }
 
 /* Game Changer */
-socket.on('gameStart', (gamePosition) => {
-  currentGame = gamePosition.game;
+socket.on('gameStart', (newGamePosition) => {
+  gamePosition = newGamePosition;
   changeGame(gamePosition.game, gamePosition.screen);
 });
 
 /* Game Update */
-socket.on('gameUpdateforPlayer', (gamePosition) => {
-  if(playerId == gamePosition.playerId) {
-    console.log('Game update received: ' + gamePosition.game + ' - ' + gamePosition.screen);
-    if(gamePosition.game !== currentGame) {
+socket.on('gameUpdateforPlayer', (newGamePosition) => {
+  if(playerId == newGamePosition.playerId) {
+    console.log('Game update received: ' + newGamePosition.game + ' - ' + newGamePosition.screen);
+    if(!gamePosition || newGamePosition.game !== gamePosition.game || newgamePosition.screen !== gamePosition.screen) {
+      gamePosition = newGamePosition;
       changeGame(gamePosition.game, gamePosition.screen);
     }
   }
@@ -72,6 +88,19 @@ socket.on('gameUpdate', (gamePosition) => {
     changeGame(gamePosition.game, gamePosition.screen);
   }
 });
+/* Game Update */
+socket.on('changeScreen', (screen) => {
+  console.log('Game screen received: ' + screen);
+  if(gamePosition.screen !== screen) {
+    gamePosition.screen = screen;
+    changeScreen(screen)
+  }
+});
+
+/* reveal answer */
+socket.on('revealAnswer', () => {
+  $('page:visible .answers').addClass('reveal');
+});
 
 
 socket.on('playerCheck', (verification) => {
@@ -81,7 +110,7 @@ socket.on('playerCheck', (verification) => {
       console.log('Player does not exist');
       playerId = null;
       localStorage.removeItem('playerId');
-      changeGame('playerName', 1);
+      changeGame('playerName', 0);
     }else{
       socket.emit('getGameforPlayer', playerId);
     }
@@ -112,8 +141,78 @@ function playerName() {
     localStorage.setItem('playerId', playerId);
     nextPage();
     socket.emit('addPlayer', {'name': playerName, 'id': playerId});
-    getGame();
   });
 
  }
+}
+
+function generateGame(){
+  if(!gamePosition.json) {
+    socket.emit('getGameforPlayer', playerId);
+    return;
+  }
+
+  $.each(gamePosition.json, function(index, screen) {
+
+    createScreen(index);
+
+    switch(screen.question.type) {
+      case 'text':
+        createTextQuestion(index, screen.question);
+        break;
+      case 'image':
+        createImageQuestion(index, screen.question);
+        break;
+      case 'buzzer':
+        createBuzzerQuestion(index, screen.question);
+        break;
+      default:
+        console.log('Error');
+    }
+
+    
+    switch(screen.answers['1'].type) {
+      case 'text':
+        createTextAnswers(index, screen.answers);
+        break;
+      case 'image':
+        createImageAnswers(index, screen.answers);
+        break;
+      case 'slider':
+        createImageAnswers(index, screen.answers);
+        break;
+      default:
+        console.log('Error');
+    }
+  });
+  console.log('Generating game...');
+
+
+}
+
+function createScreen(index) {
+  if($('#' + gamePosition.game + ' screen[data-id="'+index+'"]').length == 0) { 
+    $('#' + gamePosition.game).append('<screen data-id="' + index + '"><page data-id="0"></page></screen>');
+  }
+}
+
+
+function createTextQuestion(index, question) {
+  if($('#' + gamePosition.game + ' screen[data-id="'+index+'"] page h1').length == 0) { 
+    $('#' + gamePosition.game + ' screen[data-id="'+index+'"] page').append('<h1 class="animate__slideInLeft animate__animated"><span>' + index + '.</span> ' + question.content + '</h1>');
+  }
+}
+
+function createTextAnswers(index, answers) {
+  let currentScreen = $('#' + gamePosition.game + ' screen[data-id="'+index+'"] page');
+
+  if($(currentScreen).find('ul').length !== 0) {
+    return;
+  }
+
+  $(currentScreen).append('<ul class="answers"></ul>');
+
+  $.each(answers, function(index, answer) {
+    $(currentScreen).find('ul').append('<li class="animate__animated animate__zoomIn animate__delay-'+index+'s"><button class="btn" data-correct="' + answer.correct + '">' + answer.content + '</button>');
+  });
 }
