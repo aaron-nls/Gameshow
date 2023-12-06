@@ -6,6 +6,7 @@ body, html {
   overflow: hidden;
   background: url(images/bg.jpg) repeat;
   animation: bgAnimation 30s linear infinite;
+  font-family: 'Rancho', cursive;
 }
 
 @keyframes bgAnimation {
@@ -20,6 +21,29 @@ body, html {
 
 :root {
   --animate-delay: 0.5s;
+}
+
+.playerName{
+  padding: 20px 40px;
+  text-align: center;
+  font-size: 28px;
+  width: 90%;
+  border: 2px solid #000;
+  font-family: 'Rancho', cursive;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.btn {
+  border: 2px dashed white;
+  background-color: #be0b0b;
+  font-family: 'Rancho', cursive;
+  color: white;
+  font-size: 3vh;
+  padding: 15px 40px;
+  border-radius: 10px;
+  transition: all 0.5s ease-in-out;
+  align-self: center;
 }
 
 game {
@@ -64,7 +88,7 @@ page:first-child {
 }
 
 
-h1, h1, h3, h4, h5 {
+h1, h2, h3, h4, h5 {
   font-family: 'Rancho', cursive;
   color: white;
   text-shadow: 0 0 10px black;
@@ -198,8 +222,23 @@ h3{
   }
 }
 
+.answers.sliders {
+  width: 100%;
+  margin-top: 30px;
+}
 
-
+.slider {
+  display: flex;
+  gap: 30px;
+  color: white;
+  text-shadow: 0 0 10px black;
+  font-size: 7vw;
+  font-weight: bold;
+  max-height: 1000px;
+  transition: all 0.5s ease-in-out;
+  transition-delay: 5s;
+  opacity: 1;
+}
 
 .slider input {
   -webkit-appearance: none;
@@ -207,7 +246,7 @@ h3{
   height: 30px;
   background: #d3d3d3;
   outline: none;
-  opacity: 0.7;
+  opacity: 0.85;
   -webkit-transition: .2s;
   transition: opacity .2s;
   border-radius:20px;
@@ -232,4 +271,29 @@ h3{
   height: 35px;
   background: #04AA6D;
   cursor: pointer;
+}
+
+.sliderCorrect,
+.sliderTotal {
+  color: #e4cd8a;
+  text-shadow: 0 0 10px black;
+  font-size: 11vw;
+  font-weight: bold;
+}
+
+.sliderCorrect {
+  color: #c3f687;
+  max-height: 0;
+  transition: all 0.5s ease-in-out;
+  transition-delay: 5s;
+  opacity: 0;
+}
+
+.answers.reveal .sliderCorrect {
+  max-height: 1000px;
+  opacity: 1;
+}
+.answers.reveal .slider {
+  max-height: 0;
+  opacity: 0;
 }

@@ -15,14 +15,15 @@ $(document).ready(function() {
     socket.emit('submitAnswer', {'playerId': playerId, 'correct': correct});
   });
 
-  $(document).on('oninput', '.answers input[type="range"]', function(e) {
+  $(document).on('input', '.answers input[type="range"]', function(e) {
     $('page:visible .sliderTotal').html($(this).val());
+    console.log($(this).val());
   });
   
-  $(document).on('click', '.answers a.btn', function(e) {
+  $(document).on('click', '.answers.sliders a.btn', function(e) {
     $('page:visible .answers input').attr('disabled', true);
-    $(this).addClass('selected');
-    let correct = $(this).attr('data-correct') == 'true' ? 1 : 0;
+    
+    let correct = $('page:visible .answers .sliderCorrect').html() ==  $('page:visible .answers .sliderTotal').html() ? 1 : 0;
     socket.emit('submitAnswer', {'playerId': playerId, 'correct': correct});
   });
 });
@@ -234,5 +235,5 @@ function createSliderAnswers(index, answers) {
     return;
   }
   let middle = Math.round((answers[1].max - (answers[1].min)) / 2);
-  $(currentScreen).append('<div class="answers"><div class="slider"><span>'+ answers[1].min +'</span><input type="range" min="'+ answers[1].min +'" max="'+ answers[1].max +'" value="'+ middle +'" /><span>'+ answers[1].max +'</span></div><div class="sliderTotal">'+ middle +'</div><div class="sliderCorrect">'+answers[1].correct+'</div><a class="btn">Submit</a></div>');
+  $(currentScreen).append('<div class="answers sliders"><div class="slider"><span>'+ answers[1].min +'</span><input type="range" min="'+ answers[1].min +'" max="'+ answers[1].max +'" value="'+ middle +'" /><span>'+ answers[1].max +'</span></div><div class="sliderTotal">'+ middle +'</div><div class="sliderCorrect">'+answers[1].correct+'</div><a class="btn">Submit</a></div>');
 }
