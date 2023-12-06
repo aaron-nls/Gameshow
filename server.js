@@ -38,7 +38,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('addPlayer', (player) => {
-    players[player.id] = {name: player.name, score: 0};
+    players[player.id] = {name: player.name, team: 1, score: 0};
     io.emit('updatePlayers', players);
     io.emit('gameUpdateforPlayer', {'playerId': player.id, ...gamePosition} );
   });
@@ -63,6 +63,14 @@ io.on('connection', (socket) => {
     players[playerId].score = players[playerId].score + 50;
     io.emit('updatePlayers', players);
   });
+
+  
+  socket.on('switchTeam', (playerId) => {
+    console.log('Switch Team for Player ' + playerId );
+    players[playerId].team = players[playerId].team == 1 ? 2 : 1;
+    io.emit('updatePlayers', players);
+  });
+
 
   socket.on('getPlayers', () => {
     console.log('Getting Players');
