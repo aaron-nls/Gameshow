@@ -18,7 +18,7 @@ $(document).ready(function() {
   if(!displayMode){
     checkIfSessionExists();
   }else{
-    changeGame('start', 0);
+    changeGame('playerName', 0);
   }
 
   $(document).on('click', '.answers button', function(e) {
@@ -73,10 +73,16 @@ function changeGame(game, screen) {
   console.log(gamePosition);
   
   let enterFunction = $('game:visible').attr('data-enter');
+  let enterAudio = $('game:visible').attr('data-audio') ?? null;
 
   if(enterFunction) {
     window[enterFunction]();
   }
+
+  if(enterAudio)  {
+    playAudio(enterAudio);
+  }
+
   changeScreen(screen);
 }
 
@@ -137,6 +143,10 @@ socket.on('revealAnswer', () => {
 
 /* disable Buzzer */
 socket.on('disableBuzzers', (playerName) => {
+  if(displayMode) {
+    let audio = new Audio('audio/buzzer.mp3');
+    audio.play();
+  }
   $('page:visible .currentAnswerer span').html(playerName);
   $('page:visible .currentAnswerer').addClass('show');
 });
@@ -316,4 +326,16 @@ function startTimer() {
       clearInterval(intervalId);
     }
   }, 1000);
+}
+
+let bgAudioPlayer = null;
+function playAudio(bgAudio) {
+  if(!displayMode) { return; }
+  if(bgAudioPlayer) { bgAudioPlayer.pause(); }
+  bgAudioPlayer = new Audio('audio/' + bgAudio + '.mp3');
+  bgAudioPlayer.play();
+  if(bgAudio == 'bg'){
+    bgAudioPlayer.loop = true;
+    bgAudioPlayer.volume = 0.5;
+  }
 }

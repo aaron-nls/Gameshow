@@ -27,6 +27,16 @@ body, html {
   --animate-delay: 0.5s;
 }
 
+.qr {
+  display: none;
+}
+
+.display-mode #playerName page > *{
+  display: none;
+}
+.display-mode #playerName .qr{
+  display: block;
+}
 .playerName{
   padding: 20px 40px;
   text-align: center;

@@ -28,7 +28,7 @@
 <body>
 
 
-<game id="start">
+<game id="start" data-audio="start">
   <screen class="active" data-id="0">
     <page data-id="0">
       <div class="gamelogo">
@@ -40,7 +40,7 @@
   </screen>
 </game>
 
-<game id="leaderboard" data-enter="generateLeaderboard">
+<game id="leaderboard" data-enter="generateLeaderboard"  data-audio="scores">
   <screen class="active" data-id="0">
     <page data-id="0">
       <h1>Please view the screen</h1>
@@ -53,7 +53,7 @@
   </screen>
 </game>
 
-<game id="teamscore" data-enter="generateTeamscore">
+<game id="teamscore" data-enter="generateTeamscore"  data-audio="scores">
   <screen class="active" data-id="0">
     <page data-id="0">
       <h1>Please view the screen</h1>
@@ -80,7 +80,7 @@
 </game>
 
 
-<game id="activity1">
+<game id="activity1" data-audio="bg">
   <screen class="active" data-id="0">
     <page data-id="0">
       <div class="gamelogo">
@@ -100,7 +100,7 @@
 </game>
 
 
-<game id="activity2">
+<game id="activity2" data-audio="bg">
   <screen class="active" data-id="0">
     <page data-id="0">
       <div class="gamelogo">
@@ -118,7 +118,7 @@
 </game>
 
 
-<game id="activity3">
+<game id="activity3" data-audio="bg">
   <screen class="active" data-id="0">
     <page data-id="0">
       <div class="gamelogo">
@@ -137,6 +137,8 @@
         <h1>Enter your name</h1>
         <input type="text" class="playerName" placeholder="Your real name please...">
         <button class="btn addPlayer">Submit</button> 
+
+        <img src="images/qr.jpg" class="qr animate__animated animate__zoomIn" />
       </page>
 
       <page data-id="1">
@@ -145,7 +147,7 @@
     </screen>
 </game>
 
-  <game id="game1" class="game"  data-enter="generateGame">
+  <game id="game1" class="game"  data-enter="generateGame" data-audio="bg">
     <screen class="active" data-id="0">
       <page data-id="0">
         <div class="gamelogo">
@@ -157,7 +159,7 @@
     </screen>
   </game>
 
-  <game id="game2" class="game"  data-enter="generateGame">
+  <game id="game2" class="game"  data-enter="generateGame" data-audio="bg">
     <screen class="active" data-id="0">
       <page data-id="0">
         <div class="gamelogo">
@@ -169,7 +171,7 @@
     </screen>
   </game>
 
-  <game id="game3" class="game"  data-enter="generateGame">
+  <game id="game3" class="game"  data-enter="generateGame" data-audio="bg">
     <screen class="active" data-id="0">
       <page data-id="0">
         <div class="gamelogo">
@@ -181,7 +183,7 @@
     </screen>
   </game>
 
-  <game id="game4" class="game"  data-enter="generateGame">
+  <game id="game4" class="game"  data-enter="generateGame" data-audio="bg">
     <screen class="active" data-id="0">
       <page data-id="0">
         <div class="gamelogo">
@@ -193,7 +195,7 @@
     </screen>
   </game>
 
-  <game id="game5" class="game"  data-enter="generateGame">
+  <game id="game5" class="game"  data-enter="generateGame" data-audio="bg">
     <screen class="active" data-id="0">
       <page data-id="0">
         <div class="gamelogo">
