@@ -79,19 +79,71 @@
   </screen>
 </game>
 
-  <game id="playerName">
-      <screen class="active" data-enter="playerName" data-id="0">
-        <page data-id="0">
-          <h1>Enter your name</h1>
-          <input type="text" class="playerName" placeholder="Your real name please...">
-          <button class="btn addPlayer">Submit</button> 
-        </page>
 
-        <page data-id="1">
-          <h1>Waiting for other players...</h1>
-        </page>
-      </screen>
-  </game>
+<game id="activity1">
+  <screen class="active" data-id="0">
+    <page data-id="0">
+      <div class="gamelogo">
+        <img src="images/activity1-logo-1.png" class="animate__animated animate__zoomIn" />
+        <img src="images/activity1-logo-2.png"  class="animate__animated animate__bounceIn  animate__delay-1s" />
+        <img src="images/activity1-logo-3.png"  class="animate__animated animate__zoomIn animate__delay-3s" />
+      </div>
+    </page>
+  </screen>
+  <screen data-id="1">
+    <page data-id="0">
+      <div class="gamelogo">
+        <img src="images/mincepies.png" class="animate__animated animate__zoomIn" />
+      </div>
+    </page>
+  </screen>
+</game>
+
+
+<game id="activity2">
+  <screen class="active" data-id="0">
+    <page data-id="0">
+      <div class="gamelogo">
+        <img src="images/activity2-logo-1.png" class="animate__animated animate__zoomIn" />
+        <img src="images/activity2-logo-2.png"  class="animate__animated animate__bounceIn  animate__delay-1s" />
+        <img src="images/activity2-logo-3.png"  class="animate__animated animate__zoomIn animate__delay-3s" />
+      </div>
+    </page>
+  </screen>
+  <screen data-id="1" data-enter="startTimer">
+    <page data-id="0">
+      <h1 class="timer">02 : 00</h1>
+    </page>
+  </screen>
+</game>
+
+
+<game id="activity3">
+  <screen class="active" data-id="0">
+    <page data-id="0">
+      <div class="gamelogo">
+        <img src="images/activity3-logo-1.png" class="animate__animated animate__zoomIn" />
+        <img src="images/activity3-logo-2.png"  class="animate__animated animate__bounceIn  animate__delay-1s" />
+        <img src="images/activity3-logo-3.png"  class="animate__animated animate__zoomIn animate__delay-3s" />
+      </div>
+    </page>
+  </screen>
+</game>
+
+
+<game id="playerName">
+    <screen class="active" data-enter="playerName" data-id="0">
+      <page data-id="0">
+        <h1>Enter your name</h1>
+        <input type="text" class="playerName" placeholder="Your real name please...">
+        <button class="btn addPlayer">Submit</button> 
+      </page>
+
+      <page data-id="1">
+        <h1>Waiting for other players...</h1>
+      </page>
+    </screen>
+</game>
 
   <game id="game1" class="game"  data-enter="generateGame">
     <screen class="active" data-id="0">

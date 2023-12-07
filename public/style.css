@@ -159,6 +159,16 @@ h3{
   background-color: #ae003bb3;
 }
 
+#activity1 {
+  background: #6c370bb8;
+}
+#activity2 {
+  background: #b3daffb8;
+}
+#activity3 {
+  background: #448862b8;
+}
+
 .answers {
   display: flex;
   flex-direction: column;
@@ -449,4 +459,8 @@ h3{
   padding: 7px 50px;
   background: linear-gradient(0deg, rgba(189,100,14,1) 0%, rgba(246,210,121,1) 100%);
   border-bottom: 1px solid goldenrod;
+}
+
+.question-image  img{
+  width: 90%;
 }

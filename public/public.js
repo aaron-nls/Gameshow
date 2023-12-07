@@ -4,6 +4,15 @@ const socket = io('http://localhost:8080');
 let playerId = null;
 let gamePosition = null;
 
+let displayMode = false;
+
+const params = new URLSearchParams(window.location.search);
+if (params.has('display')) {
+  document.body.classList.add('display-mode');
+  displayMode = true;
+  alert('DISPLAY MODE ON!');
+}
+
 
 $(document).ready(function() { 
   checkIfSessionExists();
@@ -243,6 +252,12 @@ function createTextQuestion(index, question) {
   }
 }
 
+function createImageQuestion(index, question) {
+  if($('#' + gamePosition.game + ' screen[data-id="'+index+'"] page h1').length == 0) { 
+    $('#' + gamePosition.game + ' screen[data-id="'+index+'"] page').append('<div class="question-image"><h1 class="animate__slideInLeft animate__animated"><span>' + index + '.</span> ' + question.content + '</h1><img class="animate__slideInRight animate__animated" src="' + question.image + '" /></div>');
+  }
+}
+
 function createTextAnswers(index, answers) {
   let currentScreen = $('#' + gamePosition.game + ' screen[data-id="'+index+'"] page');
 
@@ -276,4 +291,22 @@ function createBuzzerAnswers(index, answers) {
   }
 
   $(currentScreen).append('<div class="answers buzzers"><a class="buzzer"></a><div class="currentAnswerer animate__animated animate__tada">Player: <span>XXX</span> is answering...</div><div class="buzzerCorrect">'+answers[1].content+'</div></div>');
+}
+
+
+function startTimer() {
+  let countdown = 120; // 2 minutes in seconds
+
+  const intervalId = setInterval(() => {
+    countdown--;
+  
+    const minutes = Math.floor(countdown / 60);
+    const seconds = countdown % 60;
+  
+    $('.timer').text(`0${minutes} : ${seconds < 10 ? '0' : ''}${seconds}`);
+  
+    if (countdown === 0) {
+      clearInterval(intervalId);
+    }
+  }, 1000);
 }
