@@ -19,6 +19,75 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer src="admin.js"></script>
     <title>Admin Page</title>
+
+    <style>
+*{
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 20px;
+        margin: 0;
+      }
+      main{
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+      }
+      .players{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        max-height: 500px;
+        overflow-y: auto;
+      }
+
+      .players li {
+        width: 100%;
+        padding: 10px;
+        border-bottom: 1px solid black;
+      }
+      .players li .player{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .players li .player span:nth-child(1){
+       font-size:12px;
+      }
+      .players li .player span:nth-child(2){
+       font-weight: bold;
+      }
+      .players li .player span:nth-child(3){
+       font-weight: bold;
+       color: goldenrod;
+      }
+      
+      .players li .player > div {
+        flex-basis: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      fieldset{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      fieldset button{
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      } 
+      
+    </style>
 </head>
 <body>
 
@@ -28,34 +97,41 @@
   </ul>
 
 
-  <button onclick="clearPlayers()"> Clear Players </button>
-  <button onclick="getPlayers()"> Update Players </button>
+  <fieldset>
+    <legend>Player Controls:</legend>
+    <button onclick="getPlayers()"> Update Players </button>
+    <button onclick="clearPlayers()"> Clear Players </button>
+  </fieldset>
 
 
 
-  <button onclick="nextScreen()"> Next Screen </button>
+  <fieldset>
+    <legend>Screen Controls:</legend>
+    <button onclick="nextScreen()"> Next Screen </button>
+    <button onclick="correctBuzz()"> Correct Buzzer </button>
+    <button onclick="wrongBuzz()"> Wrong Buzzer </button>
+</fieldset>
 
+<fieldset>
+  <legend>Scores:</legend>
 
-  <button onclick="correctBuzz()"> Correct Buzzer </button>
-  <button onclick="wrongBuzz()"> Wrong Buzzer </button>
+  <button data-command="leaderboard"> Leaderboard </button>
+  <button data-command="teamscore"> Team Score </button>
+</fieldset>
 
-  <div class="library">
-    <button data-command="start">start</button>
-    <button data-command="playerName"> Player Name </button>
-    <button data-command="leaderboard"> Leaderboard </button>
-    <button data-command="teamscore"> Team Score </button>
+<fieldset>
+  <legend>Games:</legend>
+    <button data-command="playerName">Player Name </button>
+    <button data-command="start">Start Screen</button>
     <button data-command="game1">Round 1 - Multiple Choice</button>
+    <button data-command="activity1">Activity 1 - Mince Pies</button>
     <button data-command="game2">Round 2 - True or False</button>
     <button data-command="game3">Round 3 - How Much?!</button>
+    <button data-command="activity2">Activity 2 - Snowman</button>
     <button data-command="game4">Round 4 - Picture Round</button>
     <button data-command="game5">Round 5 - Buzzer Round</button>
-
-    
-    <button data-command="activity1">Activity 1 - Mince Pies</button>
-    <button data-command="activity2">Activity 2 - Snowman</button>
     <button data-command="activity3">Activity 3 - Crackers</button>
-  </div>
-  
+</fieldset>
 </main>
 
 </body>

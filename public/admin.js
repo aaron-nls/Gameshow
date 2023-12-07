@@ -10,7 +10,7 @@ socket.on('updatePlayers', (players) => {
  $('.players').empty();
  console.log(players);
   Object.keys(players).forEach((id) => {
-    $('.players').append("<li><div class='player'><span>" + id + '</span><span>' + players[id].name + '</span><span>' + players[id].score + '</span><span>Team ' + players[id].team + '</span><button onclick="switchTeam(\'' +id + '\')">Switch Team</button> <button onclick="removePlayer(\'' +id + '\')">Remove</button><button onclick="addPoints(\'' +id + '\')">Add Points</button></div></li>');
+    $('.players').append("<li><div class='player'><span>" + id + '</span><span>' + players[id].name + '</span><span>' + players[id].score + '</span><span>Team ' + players[id].team + '</span><div><button onclick="switchTeam(\'' +id + '\')">Switch Team</button> <button onclick="removePlayer(\'' +id + '\')">Remove</button><button onclick="addPoints(\'' +id + '\')">Add Points</button></div></div></li>');
   });
 });
 
