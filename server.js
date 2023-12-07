@@ -96,8 +96,10 @@ io.on('connection', (socket) => {
 
     io.emit('updatePlayers', players);
 
-    if(answers.length == players.length){
+    if(Object.keys(answers).length == Object.keys(players).length){
       console.log('all answers received');
+      console.log(Object.keys(answers).length);
+      console.log(Object.keys(players).length)
       answers = {};
       io.emit('revealAnswer');
       
