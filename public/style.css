@@ -108,6 +108,10 @@ h3{
   font-size: 6vw;
 }
 
+.display-mode h1{
+  font-size: 6vw;
+}
+
 
 .gamelogo {
   position: absolute;
@@ -131,6 +135,9 @@ h3{
 }
 
 #start{
+  background: linear-gradient(180deg, rgba(54,119,117,0.85) 0%, rgba(162,189,131,0.85) 25%, rgba(244,157,83,0.85) 50%, rgba(226,72,37,0.85) 75%, rgba(56,79,86,0.85) 100%);
+}
+.display-mode #start{
   background: linear-gradient(90deg, rgba(54,119,117,0.85) 0%, rgba(162,189,131,0.85) 25%, rgba(244,157,83,0.85) 50%, rgba(226,72,37,0.85) 75%, rgba(56,79,86,0.85) 100%);
 }
 
@@ -210,6 +217,23 @@ h3{
   transition-delay: 2.5s;
   border-color: #ffefc8;
   background-color: black;
+}
+
+.display-mode .answers {
+  display: none;
+}
+
+.display-mode .answers.reveal {
+  display: flex;
+}
+
+.display-mode .answers.reveal button[data-correct="false"]  {
+  display: none;
+}
+.display-mode .answers.reveal button[data-correct="true"]  {
+  display: block;
+  opacity: 1 !important;
+  font-size: 5vw;
 }
 
 @keyframes revealCorrect {
@@ -303,6 +327,14 @@ h3{
   opacity: 0;
 }
 
+.display-mode .sliderTotal {
+  display: none;
+} 
+
+.display-mode .answers.sliders .btn {
+  display: none;
+}
+
 .answers.reveal .sliderCorrect {
   max-height: 1000px;
   opacity: 1;
@@ -362,11 +394,28 @@ h3{
   gap: 30px;
   color: white;
   font-size: 5vh;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 25%;
+  left: 7.5%;
   border-radius: 20px;
   display: none;
+}
+
+.display-mode .currentAnswerer,
+.display-mode .buzzerCorrect {
+  font-size: 7vh;
+  width: 50%;
+  left: 25%;
+}
+
+
+.display-mode .buzzerCorrect {
+  font-size: 9vh;
+}
+.display-mode .answers .buzzer {
+  display: none;
+}
+.display-mode .answers.buzzers {
+  display: block;
 }
 
 .answers.reveal .buzzerCorrect {
@@ -377,8 +426,12 @@ h3{
 }
 
 
+.display-mode #teamscore page > h1 {
+  display: none;
+}
+
 .teamscore {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -388,6 +441,15 @@ h3{
   color: white;
   text-shadow: 0 0 10px black;
   font-weight: bold;
+}
+
+.display-mode .teamscore {
+  display: flex;
+}
+
+.teamscore > h1 {
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 
 .scoreboard {
@@ -432,6 +494,17 @@ h3{
 #leaderboard h1{
   margin-top: 0;
 }
+
+.display-mode #leaderboard page > h1{
+  display: none;
+}
+
+.leaderboard{
+  display: none;
+}
+.display-mode .leaderboard{
+  display: block;
+}
 .leaderboardScores{
   padding: 0;
   margin: 0 auto;
@@ -447,6 +520,7 @@ h3{
   overflow: hidden;
   border: 5px solid #985f1a;
 }
+
 
 .leaderboardScores li {
   display: flex;

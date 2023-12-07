@@ -15,7 +15,11 @@ if (params.has('display')) {
 
 
 $(document).ready(function() { 
-  checkIfSessionExists();
+  if(!displayMode){
+    checkIfSessionExists();
+  }else{
+    changeGame('start', 0);
+  }
 
   $(document).on('click', '.answers button', function(e) {
     $('page:visible .answers button').addClass('disabled');
@@ -31,6 +35,8 @@ $(document).ready(function() {
   
   $(document).on('click', '.answers.sliders a.btn', function(e) {
     $('page:visible .answers input').attr('disabled', true);
+    $('page:visible .answers .slider').fadeOut();
+    $(this).fadeOut();
     
     let correct = $('page:visible .answers .sliderCorrect').html() ==  $('page:visible .answers .sliderTotal').html() ? 1 : 0;
     socket.emit('submitAnswer', {'playerId': playerId, 'correct': correct});
@@ -279,7 +285,7 @@ function createSliderAnswers(index, answers) {
   if($(currentScreen).find('input[type="range"]').length !== 0) {
     return;
   }
-  let middle = Math.round((answers[1].max - (answers[1].min)) / 2);
+  let middle = Math.round((answers[1].max - (answers[1].min)) / 2) + parseInt(answers[1].min);
   $(currentScreen).append('<div class="answers sliders"><div class="slider"><span>'+ answers[1].min +'</span><input type="range" min="'+ answers[1].min +'" max="'+ answers[1].max +'" value="'+ middle +'" /><span>'+ answers[1].max +'</span></div><div class="sliderTotal">'+ middle +'</div><div class="sliderCorrect">'+answers[1].correct+'</div><a class="btn">Submit</a></div>');
 }
 
