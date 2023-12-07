@@ -15,16 +15,22 @@ $(document).ready(function() {
     socket.emit('submitAnswer', {'playerId': playerId, 'correct': correct});
   });
 
-  $(document).on('oninput', '.answers input[type="range"]', function(e) {
+  $(document).on('input', '.answers input[type="range"]', function(e) {
     $('page:visible .sliderTotal').html($(this).val());
+    console.log($(this).val());
   });
   
-  $(document).on('click', '.answers a.btn', function(e) {
+  $(document).on('click', '.answers.sliders a.btn', function(e) {
     $('page:visible .answers input').attr('disabled', true);
-    $(this).addClass('selected');
-    let correct = $(this).attr('data-correct') == 'true' ? 1 : 0;
+    
+    let correct = $('page:visible .answers .sliderCorrect').html() ==  $('page:visible .answers .sliderTotal').html() ? 1 : 0;
     socket.emit('submitAnswer', {'playerId': playerId, 'correct': correct});
   });
+
+  $(document).on('click', '.answers.buzzers a.buzzer', function(e) {
+    socket.emit('playerBuzz', playerId);
+  });
+
 });
 
 function checkIfSessionExists() {
@@ -49,6 +55,7 @@ function changeGame(game, screen) {
   $('game').removeClass('active');
   $('#' + game).addClass('active');
 
+  console.log(gamePosition);
   
   let enterFunction = $('game:visible').attr('data-enter');
 
@@ -112,6 +119,17 @@ socket.on('revealAnswer', () => {
     $('page:visible .answers').addClass('reveal');
 });
 
+/* disable Buzzer */
+socket.on('disableBuzzers', (playerName) => {
+  $('page:visible .currentAnswerer span').html(playerName);
+  $('page:visible .currentAnswerer').addClass('show');
+});
+
+/* enable Buzzer */
+socket.on('enableBuzzers', () => {
+    $('page:visible .currentAnswerer').removeClass('show');
+});
+
 
 socket.on('playerCheck', (verification) => {
   console.log('Player check received: ' + verification.playerId + ' - ' + verification.playerExists);
@@ -156,6 +174,18 @@ function playerName() {
  }
 }
 
+function generateTeamscore() {
+  $('.team:first-child .teamScore').html(gamePosition.json[1]);
+  $('.team:last-child .teamScore').html(gamePosition.json[2]);
+}
+
+function generateLeaderboard() {
+  $('.leaderboardScores').empty();
+  $.each(gamePosition.json, function(index, player) {
+    $('.leaderboardScores').append('<li><span>'+(parseInt(index)+1)+'.</span><span>' + player.name + '</span><span>' + player.score + '</span></li>');
+  });
+}
+
 function generateGame(){
   if(!gamePosition.json) {
     socket.emit('getGameforPlayer', playerId);
@@ -173,9 +203,6 @@ function generateGame(){
       case 'image':
         createImageQuestion(index, screen.question);
         break;
-      case 'buzzer':
-        createBuzzerQuestion(index, screen.question);
-        break;
       default:
         console.log('Error');
     }
@@ -190,6 +217,9 @@ function generateGame(){
         break;
       case 'slider':
         createSliderAnswers(index, screen.answers);
+        break;
+      case 'buzzer':
+        createBuzzerAnswers(index, screen.answers);
         break;
       default:
         console.log('Error');
@@ -234,5 +264,16 @@ function createSliderAnswers(index, answers) {
     return;
   }
   let middle = Math.round((answers[1].max - (answers[1].min)) / 2);
-  $(currentScreen).append('<div class="answers"><div class="slider"><span>'+ answers[1].min +'</span><input type="range" min="'+ answers[1].min +'" max="'+ answers[1].max +'" value="'+ middle +'" /><span>'+ answers[1].max +'</span></div><div class="sliderTotal">'+ middle +'</div><div class="sliderCorrect">'+answers[1].correct+'</div><a class="btn">Submit</a></div>');
+  $(currentScreen).append('<div class="answers sliders"><div class="slider"><span>'+ answers[1].min +'</span><input type="range" min="'+ answers[1].min +'" max="'+ answers[1].max +'" value="'+ middle +'" /><span>'+ answers[1].max +'</span></div><div class="sliderTotal">'+ middle +'</div><div class="sliderCorrect">'+answers[1].correct+'</div><a class="btn">Submit</a></div>');
+}
+
+
+function createBuzzerAnswers(index, answers) {
+  let currentScreen = $('#' + gamePosition.game + ' screen[data-id="'+index+'"] page');
+
+  if($(currentScreen).find('.buzzer').length !== 0) {
+    return;
+  }
+
+  $(currentScreen).append('<div class="answers buzzers"><a class="buzzer"></a><div class="currentAnswerer animate__animated animate__tada">Player: <span>XXX</span> is answering...</div><div class="buzzerCorrect">'+answers[1].content+'</div></div>');
 }

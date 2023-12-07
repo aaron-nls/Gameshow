@@ -40,18 +40,41 @@
   </screen>
 </game>
 
-<game id="leaderboard">
+<game id="leaderboard" data-enter="generateLeaderboard">
   <screen class="active" data-id="0">
     <page data-id="0">
       <h1>Please view the screen</h1>
+      <div class="leaderboard">
+        <h1>Leaderboard</h1>
+        <ul class="leaderboardScores animate__animated animate__bounceInUp animate__delay-1s">
+        </ul> 
+      </div>
     </page>
   </screen>
 </game>
 
-<game id="teamscore">
+<game id="teamscore" data-enter="generateTeamscore">
   <screen class="active" data-id="0">
     <page data-id="0">
       <h1>Please view the screen</h1>
+
+      <div class="teamscore">
+          <h1>Team Scores</h1>
+          <div class="scoreboard">
+
+            <div class="team animate__animated animate__lightSpeedInLeft animate__delay-1s">
+              <div class="teamName">Team 1</div>
+              <div class="teamScore">0</div>
+            </div>
+
+            -
+
+            <div class="team animate__animated animate__lightSpeedInRight animate__delay-3s">
+              <div class="teamName">Team 2</div>
+              <div class="teamScore">0</div>
+            </div>
+          </div>
+      </div>
     </page>
   </screen>
 </game>
@@ -60,7 +83,7 @@
       <screen class="active" data-enter="playerName" data-id="0">
         <page data-id="0">
           <h1>Enter your name</h1>
-          <input type="text" class="playerName" placeholder="Enter your name">
+          <input type="text" class="playerName" placeholder="Your real name please...">
           <button class="btn addPlayer">Submit</button> 
         </page>
 

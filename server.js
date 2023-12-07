@@ -16,6 +16,7 @@ let gamePosition = {
 };
 
 let answers = {};
+let buzzerPlayer = null;
 
 app.use(express.static('public'));
 
@@ -82,6 +83,24 @@ io.on('connection', (socket) => {
     io.emit('updatePlayers', {});
   });
 
+  socket.on('playerBuzz', (playerId) => {
+    if(buzzerPlayer) return; 
+    buzzerPlayer= playerId;
+    io.emit('updateBuzzerPlayer', playerId);
+    io.emit('disableBuzzers', players[playerId].name);
+  });
+
+  socket.on('wrongBuzz', (playerId) => {
+    buzzerPlayer= null;
+    players[playerId].score = players[playerId].score - 5;
+    io.emit('enableBuzzers');
+    io.emit('updatePlayers', players);
+  });
+  socket.on('correctBuzz', (playerId) => {
+    buzzerPlayer= null;
+    submitAnswer({playerId: playerId, correct: 1});
+  });
+
   socket.on('disconnect', () => {
     console.log('Client disconnected');
   });
@@ -90,37 +109,52 @@ io.on('connection', (socket) => {
     nextScreen();
   });
   socket.on('submitAnswer', (answer) => {
-    console.log('answer received');
-    answers[answer.playerId] = answer.correct * 10;
-    players[answer.playerId].score = players[answer.playerId].score + (answer.correct * 10);
-
-    io.emit('updatePlayers', players);
-
-    if(Object.keys(answers).length == Object.keys(players).length){
-      console.log('all answers received');
-      console.log(Object.keys(answers).length);
-      console.log(Object.keys(players).length)
-      answers = {};
-      io.emit('revealAnswer');
-      
-      setTimeout(() => {
-        console.log('SCREENS: ' + Object.keys(gamePosition.json).length);
-        console.log('CUR SCREEN: ' + gamePosition.screen);
-        if(gamePosition.screen == Object.keys(gamePosition.json).length){
-          startGame('leaderboard');
-        }else{
-          nextScreen();
-        }
-      }, 10000); // Wait for 10 seconds
-    }
+   submitAnswer(answer);
   });
 });
 
+
+function submitAnswer(answer){
+  console.log('answer received');
+  answers[answer.playerId] = answer.correct * 10;
+  players[answer.playerId].score = players[answer.playerId].score + (answer.correct * 10);
+
+  io.emit('updatePlayers', players);
+
+  if(Object.keys(answers).length == Object.keys(players).length){
+    console.log('all answers received');
+    answers = {};
+    io.emit('revealAnswer');
+    
+    setTimeout(() => {
+      console.log('SCREENS: ' + Object.keys(gamePosition.json).length);
+      console.log('CUR SCREEN: ' + gamePosition.screen);
+      if(gamePosition.screen == Object.keys(gamePosition.json).length){
+        startGame('leaderboard');
+      }else{
+        nextScreen();
+      }
+    }, 10000); // Wait for 10 seconds
+  }
+}
 
 function startGame(game){
   console.log('Startimg game ' + game);
     gamePosition.game = game;
     gamePosition.screen = 0;
+
+    if(game == 'leaderboard'){
+      gamePosition.json = calculateLeaderboard();
+      io.emit('gameStart', gamePosition);
+      return;
+    }
+
+    if(game == 'teamscore'){
+      gamePosition.json = calculateTeamscore();
+      io.emit('gameStart', gamePosition);
+      console.log(gamePosition.json);
+      return;
+    }
 
     fs.readFile('public/games/' + game + '.json', 'utf8', (err, data) => {
       if (err) {
@@ -129,7 +163,6 @@ function startGame(game){
         gamePosition.json = JSON.parse(data);
       }
       io.emit('gameStart', gamePosition);
-      console.log(gamePosition.json);
     });
 }
 
@@ -139,6 +172,23 @@ function nextScreen(){
   console.log(gamePosition.screen);
   io.emit('changeScreen', gamePosition.screen);
 
+}
+
+function calculateLeaderboard(){
+  let leaderboard = [];
+  Object.keys(players).forEach((id) => {
+    leaderboard.push({id: id, name: players[id].name, score: players[id].score});
+  });
+  leaderboard.sort((a,b) => (a.score < b.score) ? 1 : ((b.score < a.score) ? -1 : 0));
+  return leaderboard;
+}
+
+function calculateTeamscore(){
+  let teamscore = {1: 0, 2: 0};
+  Object.keys(players).forEach((id) => {
+    teamscore[players[id].team] = teamscore[players[id].team] + players[id].score;
+  });
+  return teamscore;
 }
 
 server.listen(8080, () => console.log('Server listening on port 8080'));
