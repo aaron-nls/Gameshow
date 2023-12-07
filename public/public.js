@@ -100,7 +100,7 @@ socket.on('gameStart', (newGamePosition) => {
 socket.on('gameUpdateforPlayer', (newGamePosition) => {
   if(playerId == newGamePosition.playerId) {
     console.log('Game update received: ' + newGamePosition.game + ' - ' + newGamePosition.screen);
-    if(!gamePosition || newGamePosition.game !== gamePosition.game || newgamePosition.screen !== gamePosition.screen) {
+    if(!gamePosition || newGamePosition.game !== gamePosition.game || newGamePosition.screen !== gamePosition.screen) {
       gamePosition = newGamePosition;
       changeGame(gamePosition.game, gamePosition.screen);
     }
@@ -125,7 +125,8 @@ socket.on('changeScreen', (screen) => {
 
 /* reveal answer */
 socket.on('revealAnswer', () => {
-    $('page:visible .answers').addClass('reveal');
+  $('page:visible .answers').addClass('reveal');
+  $('page:visible .question-image').addClass('reveal');
 });
 
 /* disable Buzzer */
@@ -254,7 +255,7 @@ function createTextQuestion(index, question) {
 
 function createImageQuestion(index, question) {
   if($('#' + gamePosition.game + ' screen[data-id="'+index+'"] page h1').length == 0) { 
-    $('#' + gamePosition.game + ' screen[data-id="'+index+'"] page').append('<div class="question-image"><h1 class="animate__slideInLeft animate__animated"><span>' + index + '.</span> ' + question.content + '</h1><img class="animate__slideInRight animate__animated" src="' + question.image + '" /></div>');
+    $('#' + gamePosition.game + ' screen[data-id="'+index+'"] page').append('<div class="question-image"><h1 class="animate__slideInLeft animate__animated"><span>' + index + '.</span> ' + question.content + '</h1><img class="image-question animate__slideInRight animate__animated" src="' + question.image + '" /><img class="image-answer animate__tada animate__animated" src="' + question.answer + '" /></div>');
   }
 }
 

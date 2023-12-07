@@ -103,8 +103,8 @@
         "question": {
             "type": "image",
             "content": "What's the headline?",
-            "image": "images/pictureround/Question.png",
-            "answer": "images/pictureround/Question-answer.png"
+            "image": "images/pictureround/Question5.png",
+            "answer": "images/pictureround/Question5-answer.png"
         },
         "answers": {
             "1": {
