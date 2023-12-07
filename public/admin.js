@@ -4,7 +4,7 @@ const socket = io('http://localhost:8080');
 const form = document.getElementById('message-form');
 const messageBox = document.getElementById('message-box');
 const messages = document.getElementById('messages');
-
+let buzzerPlayer = null
 
 socket.on('updatePlayers', (players) => {
  $('.players').empty();
@@ -52,3 +52,21 @@ function switchTeam(playerId) {
   console.log('Switching team for ' + playerId);
   socket.emit('switchTeam', playerId);
 }
+function correctBuzz() {
+  console.log('Correct buzzer ');
+  if(!buzzerPlayer) return;
+  socket.emit('correctBuzz', buzzerPlayer);
+  buzzerPlayer = null;
+}
+function wrongBuzz() {
+  console.log('Wrong buzzer ');
+  if(!buzzerPlayer) return;
+  socket.emit('wrongBuzz', buzzerPlayer);
+  buzzerPlayer = null;
+}
+
+
+
+socket.on('updateBuzzerPlayer', (playerId) => {
+  buzzerPlayer= playerId;
+});
